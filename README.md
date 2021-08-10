@@ -1,1 +1,1 @@
-# TIC-TAC-TOE
+# CONNECT-4
