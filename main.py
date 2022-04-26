@@ -166,4 +166,6 @@ while True:
             if checkDiagonalO() == True:
                 print("Player two win!")
                 break
-        
+
+if __name__ == "__main__":
+    pass
