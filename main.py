@@ -20,10 +20,6 @@ board =[[" "," "," "," "," "," "," "],
         [" "," "," "," "," "," "," "], 
         [" "," "," "," "," "," "," "]]
 
-#u'\u2B24'
-X = termcolor.colored(u'\u2B24',"red")
-O = termcolor.colored(u'\u2B24',"blue")
-
 #function to create the board
 def createboard():
     for r in range (12): 
@@ -39,133 +35,128 @@ def createboard():
                 else:
                     #print("     ", end="")
                     print( board[practicalRow][practicalColumn], end="")
-        
     print("-" * 15)
 
-
-#Horizontal win checks
-
-def checkForWinhX():
-    #Horizontal win for "X"
+#---------- Horizontal win checks ----------
+def check_Win_H_X(): #Horizontal win for "X"
     for practicalRow in range(5,-1,-1):
         for practicalColumn in range(4):
             if (board[practicalRow][practicalColumn]==X and board[practicalRow][practicalColumn+1]==X
             and board[practicalRow][practicalColumn+2]==X and board[practicalRow][practicalColumn+3]==X):
                 return True
 
-def checkForWinhO():
-    #Horizontal win for "O"
+def check_Win_H_O(): #Horizontal win for "O"
     for practicalRow in range(5,-1,-1):
         for practicalColumn in range(4):
             if (board[practicalRow][practicalColumn]==O and board[practicalRow][practicalColumn+1]==O
             and board[practicalRow][practicalColumn+2]==O and board[practicalRow][practicalColumn+3]==O):
                 return True
 
+#---------- Vertical win checks ----------
+def check_Win_V_X(): #Vertical win for "X"
+    for practicalRow in range(2,-1,-1):
+        for practicalColumn in range(7):
+            if turn>6:
+                if (board[practicalRow][practicalColumn]==X and board[practicalRow+1][practicalColumn]==X
+                and board[practicalRow+2][practicalColumn]==X and board[practicalRow+3][practicalColumn]==X):
+                    return True
 
-#Vertical win checks
+def check_Win_V_O(): #Vertical win for "O"
+    for practicalRow in range(2,-1,-1):
+        for practicalColumn in range(7):
+            if turn > 6:
+                if (board[practicalRow][practicalColumn]==O and board[practicalRow+1][practicalColumn]==O
+                and board[practicalRow+2][practicalColumn]==O and board[practicalRow+3][practicalColumn]==O):
+                    return True
 
-def checkForWinvX():
-    #vertical win for "X"
-    for practicalRow in range(5,-1,-1):
-        for practicalColumn in range(4):
-            if (board[practicalRow][practicalColumn]==X and board[practicalRow-1][practicalColumn]==X
-            and board[practicalRow-2][practicalColumn]==X and board[practicalRow-3][practicalColumn]==X):
-                return True
-
-def checkForWinvO():
-    #vertical win for "O"
-    for practicalRow in range(5,-1,-1):
-        for practicalColumn in range(4):
-            if (board[practicalRow][practicalColumn]==O and board[practicalRow-1][practicalColumn]==O
-            and board[practicalRow-2][practicalColumn]==O and board[practicalRow-3][practicalColumn]==O):
-                return True
-
-
-#Diagonal win checks
-
-def checkDiagonalX():
-    #Diagonal win for "X"
-    for practicalRow in range(5,-1,-1):# Checks 4 spots diagonally going left
-        for practicalColumn in range(4): 
-            if (board[practicalRow][practicalColumn] == X and board[practicalRow - 1][practicalColumn + 1] == X 
-            and board[practicalRow - 2][practicalColumn + 2] == X and board[practicalRow - 3][practicalColumn + 3] == X):
-                return True
-
-    for practicalRow in range(len(board[0]) - 4):# Checks 4 spots diagonally going left
+#---------- Diagonal win checks ----------
+def check_Win_D_R_X(): #Diagonal win for "X" "\"
+    for practicalRow in range(3):
         for practicalColumn in range(4): 
             if (board[practicalRow][practicalColumn] == X and board[practicalRow + 1][practicalColumn + 1] == X 
             and board[practicalRow + 2][practicalColumn + 2] == X and board[practicalRow + 3][practicalColumn + 3] == X):
                 return True
-    
 
-def checkDiagonalO():
-    #Diagonal win for "O"
-    for practicalRow in range(5,-1,-1):# Checks 4 spots diagonally going left
-        for practicalColumn in range(4): 
-            if (board[practicalRow][practicalColumn] == O and board[practicalRow - 1][practicalColumn + 1] == O 
-            and board[practicalRow - 2][practicalColumn + 2] == O and board[practicalRow - 3][practicalColumn + 3] == O):
+def check_Win_D_L_X(): #Diagonal win for "X" "/"
+    for practicalRow in range(5,2,-1):
+        for practicalColumn in range(3,7,1): 
+            if (board[practicalRow][practicalColumn] == X and board[practicalRow - 1][practicalColumn - 1] == X 
+            and board[practicalRow - 2][practicalColumn - 2] == X and board[practicalRow - 3][practicalColumn - 3] == X):
                 return True
     
-    for practicalRow in range(len(board[0]) - 4):# Checks 4 spots diagonally going right
-        for practicalColumn in range(len(board) - 2): 
+def check_Win_D_R_O(): #Diagonal win for "O" "\"
+    for practicalRow in range(3):
+        for practicalColumn in range(4): 
             if (board[practicalRow][practicalColumn] == O and board[practicalRow + 1][practicalColumn + 1] == O 
             and board[practicalRow + 2][practicalColumn + 2] == O and board[practicalRow + 3][practicalColumn + 3] == O):
                 return True
-    
+                
+def check_Win_D_L_O(): #Diagonal win for "O" "/"
+    for practicalRow in range(5,2,-1):
+        for practicalColumn in range(3,7,1): 
+            if (board[practicalRow][practicalColumn] == O and board[practicalRow - 1][practicalColumn - 1] == O 
+            and board[practicalRow - 2][practicalColumn - 2] == O and board[practicalRow - 3][practicalColumn - 3] == O):
+                return True
 
 createboard()
+
+#u'\u2B24'
+X = termcolor.colored(u'\u2B24',"red")
+O = termcolor.colored(u'\u2B24',"blue")
 
 #This list stores the row that its about to put a mark
 checkRowList = [5,5,5,5,5,5,5] 
 player = 1
+turn = 0
 
-while True:
+while turn < 42:
     print("Player's",player,"turn")
     chosenColumn = int(input("choose column (1 - 7) to play: ")) - 1
 
     if checkRowList[chosenColumn] == -1:
-        print("Column full, choose another column")
-    
+        print("Column full, please choose another column")
     else:
+        turn += 1
+        row = checkRowList[chosenColumn]
+        checkRowList[chosenColumn] -= 1
+        
         if player == 1:
-            row = checkRowList[chosenColumn]
             board[row][chosenColumn] = X
-            checkRowList[chosenColumn] -= 1
             player = 2
             createboard()
             
             #Here check for "X" win in all ways
-            if checkForWinhX()==True:
-                print("Player one win!")
+            if check_Win_H_X()==True:
+                print("Player one h win!")
                 break
             
-            if checkForWinvX() == True:
-                print("Player one win!")
+            if check_Win_V_X() == True:
+                print("Player one v win!")
                 break
 
-            if checkDiagonalX() == True:
-                print("Player one win!")
+            if check_Win_D_R_X() == True or check_Win_D_L_X() == True:
+                print("Player one d win!")
                 break
 
         elif player == 2:
-            row = checkRowList[chosenColumn]
             board[row][chosenColumn] = O
-            checkRowList[chosenColumn] -= 1
             player = 1
             createboard()
 
             #Here check for "O" win in all ways
-            if checkForWinhO()==True:
-                print("Player two win!")
+            if check_Win_H_O()==True:
+                print("Player two h win!")
                 break
             
-            if checkForWinvO() == True:
-                print("Player two win!")
+            if check_Win_V_O() == True:
+                print("Player two v win!")
                 break
 
-            if checkDiagonalO() == True:
-                print("Player two win!")
+            if check_Win_D_R_O() == True or check_Win_D_L_O() == True:
+                print("Player two d win!")
                 break
+else:
+    print("Its a tie")
 
 if __name__ == "__main__":
     pass
